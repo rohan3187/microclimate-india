@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Probe Map | Microclimate India</title>
+  <meta name="description" content="Interactive map of Microclimate India's TMS-4 microclimate loggers across the Western Ghats of Karnataka, Goa and Maharashtra.">
+  <meta name="theme-color" content="#645844">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&family=Lora:wght@500;600;700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-root="" data-page="map">
+<div id="site-header"></div>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="hero-bg" style="background-image:url('assets/img/probe-grass.jpg')"></div>
+    <div class="container">
+      <span class="eyebrow">Probe map</span>
+      <h1>Probe locations and information</h1>
+      <p>We have installed multiple microclimate probes in the region of Western Ghats. As new projects come up in the near future, we shall plan to install elsewhere in the country too. Below you will find the pinned location of these probes on the map. You can click on that pin and find the information about that probe - location, history, data availability etc.</p>
+    </div>
+  </section>
+
+  <section class="bg-brown">
+    <div class="container stats" id="map-stats">
+      <div class="stat"><div class="stat-num" id="s-loggers">–</div><div class="stat-label">TMS-4 loggers installed</div></div>
+      <div class="stat"><div class="stat-num" id="s-sites">–</div><div class="stat-label">Study sites</div></div>
+      <div class="stat"><div class="stat-num" id="s-swamps">–</div><div class="stat-label">Swamp transects</div></div>
+      <div class="stat"><div class="stat-num" id="s-span">–</div><div class="stat-label">North–south span of the network</div></div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:56px">
+    <div class="container">
+      <div id="placeholder-note" class="callout warn" style="margin-bottom:24px;display:none">
+        <h4>Indicative locations</h4>
+        <p>The pins below show the regions where we work. They are not exact probe positions yet.</p>
+      </div>
+      <p class="muted small" style="margin-bottom:16px">Tip: numbered circles group nearby loggers. Click one to zoom in, or pick a site from the list.</p>
+      <div class="map-wrap">
+        <div id="probe-map" role="region" aria-label="Map of probe locations"></div>
+        <aside class="map-side">
+          <div class="map-filters" id="filters" aria-label="Filter by habitat"></div>
+          <div style="padding:12px 18px;border-bottom:1px solid var(--line);font-size:.85rem;color:var(--muted);display:flex;justify-content:space-between;gap:10px">
+            <span id="probe-count"></span>
+            <button type="button" id="reset-view" class="chip" style="padding:.2em .8em">Show all</button>
+          </div>
+          <ul class="probe-list" id="probe-list"></ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-sand">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Study design</span>
+        <h2>How the loggers are arranged</h2>
+        <p>Most sites are set up as small transects, so we can compare microclimates that are only a few hundred metres apart but very different ecologically.</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="icon-card reveal"><h3>Swamp → edge → peak</h3><p>At Darbejaddi, Chare, Choudikan–Nilkund and the Elaeocarpus swamp, loggers sit inside the swamp, at its edge or in the neighbouring evergreen forest, and on the hilltop above. This shows how much the wet valley floor buffers heat and drought.</p></div>
+        <div class="icon-card reveal"><h3>Long-term monitoring plot</h3><p>At Sayimane, a permanent plot with loggers at its four corners (LTM NE, NW, SE, SW) is surrounded by valley, forest-floor, edge, open and grassland loggers. Together they capture fine-scale variation within one landscape.</p></div>
+        <div class="icon-card reveal"><h3>Latitudinal network</h3><p>Single sites from Sakleshpur in the south to Shirkoli near Pune in the north extend the network along the length of the Western Ghats, across very different rainfall and forest types.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">The instrument</span>
+        <h2>Some information about these probes</h2>
+        <p>Officially called TMS-4 dataloggers, it measures the air and soil temperature as well as soil moisture using three temperature sensors and one soil moisture sensor - every 10 minutes, with the potential capacity to run for ~ 10 years. More information could be found here: <a href="https://tomst.com/web/en/systems/tms/tms-4/" target="_blank" rel="noopener">https://tomst.com/web/en/systems/tms/tms-4/</a>.</p>
+      </div>
+      <div class="sensor-diagram reveal">
+        <img src="assets/img/probe-schematic.jpg" alt="Schematic of the TMS-4 probe showing its sensors" data-zoom style="border-radius:var(--radius-sm);background:#fff">
+        <div>
+          <table>
+            <thead><tr><th>Sensor</th><th>Position</th><th>What it tells us</th></tr></thead>
+            <tbody>
+              <tr><td><strong>T3: air temperature</strong></td><td>15 cm above ground</td><td>The air seedlings, herbs and small animals live in</td></tr>
+              <tr><td><strong>T2: surface temperature</strong></td><td>2 cm above ground</td><td>Conditions in the leaf litter layer</td></tr>
+              <tr><td><strong>T1: soil temperature</strong></td><td>6 cm below ground</td><td>Root-zone and soil-organism environment</td></tr>
+              <tr><td><strong>Soil moisture</strong></td><td>Top ~15 cm of soil</td><td>Water available to plants and fungi</td></tr>
+            </tbody>
+          </table>
+          <p class="small muted" style="margin-top:18px"><strong>Reference:</strong> Wild J., Kopecký M., Macek M., Šanda M., Jankovec J., &amp; Haase T. (2019) Climate at ecologically relevant scales: A new temperature and soil moisture logger for long-term microclimate measurement. Agricultural and Forest Meteorology, 268, 40–47.</p>
+        </div>
+      </div>
+      <div class="gallery">
+        <img src="assets/img/probe-tms4.jpg" alt="TMS-4 probe installed in a garden" loading="lazy">
+        <img src="assets/img/probe-soil.jpg" alt="Probe installed on the forest floor" loading="lazy">
+        <img src="assets/img/probe-swamp-1.jpg" alt="Probe installed in a Myristica swamp" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm bg-sand">
+    <div class="container">
+      <div class="callout">
+        <h4>Help us expand the network</h4>
+        <p>Each new probe fills a gap in our picture of the Western Ghats. You can <a href="donate.html#adopt">adopt a probe</a>, offer a site on your land, or <a href="data.html">request data</a> from existing probes.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+<script src="js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.min.js"></script>
+<script src="js/probes.js"></script>
+<script>
+(function () {
+  if (PROBES_ARE_PLACEHOLDERS) document.getElementById('placeholder-note').style.display = 'block';
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+  // ---- Summary stats ----
+  var siteKeys = Object.keys(SITES).filter(function (k) { return PROBES.some(function (p) { return p.site === k; }); });
+  var swampSites = siteKeys.filter(function (k) { return PROBES.some(function (p) { return p.site === k && p.habitat === 'swamp'; }); });
+  var lats = PROBES.map(function (p) { return p.lat; });
+  var spanKm = Math.round((Math.max.apply(null, lats) - Math.min.apply(null, lats)) * 111.2 / 10) * 10;
+  document.getElementById('s-loggers').textContent = PROBES.length;
+  document.getElementById('s-sites').textContent = siteKeys.length;
+  document.getElementById('s-swamps').textContent = swampSites.length;
+  document.getElementById('s-span').textContent = '~' + spanKm.toLocaleString('en-IN') + ' km';
+
+  // ---- Map + base layers ----
+  var map = L.map('probe-map', { scrollWheelZoom: false });
+  var terrain = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+    maxZoom: 19, maxNativeZoom: 18, attribution: 'Tiles &copy; Esri, HERE, Garmin, USGS, NGA, OpenStreetMap contributors'
+  }).addTo(map);
+  var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    maxZoom: 19, maxNativeZoom: 18, attribution: 'Imagery &copy; Esri, Maxar, Earthstar Geographics'
+  });
+  var streets = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+    maxZoom: 19, maxNativeZoom: 18, attribution: 'Tiles &copy; Esri, HERE, Garmin, OpenStreetMap contributors'
+  });
+  L.control.layers({ 'Terrain': terrain, 'Satellite': satellite, 'Streets': streets }, null, { position: 'topright' }).addTo(map);
+  L.control.scale({ imperial: false }).addTo(map);
+  map.on('focus', function () { map.scrollWheelZoom.enable(); });
+  map.on('blur', function () { map.scrollWheelZoom.disable(); });
+
+  // ---- Plot outlines ----
+  (window.PLOTS || []).forEach(function (pl) {
+    L.polygon(pl.coords, { color: '#c9a227', weight: 2, fillOpacity: 0.08, dashArray: '5 4' })
+      .bindTooltip(pl.name, { sticky: true }).addTo(map);
+  });
+
+  // ---- Markers (clustered) ----
+  var cluster = L.markerClusterGroup({
+    maxClusterRadius: 45,
+    showCoverageOnHover: false,
+    spiderfyOnMaxZoom: true,
+    iconCreateFunction: function (c) {
+      var n = c.getChildCount();
+      var size = n < 5 ? 34 : n < 15 ? 40 : 46;
+      return L.divIcon({
+        html: '<div style="width:' + size + 'px;height:' + size + 'px;line-height:' + (size - 6) + 'px;border-radius:50%;background:#645844;color:#fff;font-weight:800;font-size:.85rem;text-align:center;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.35)">' + n + '</div>',
+        className: '', iconSize: [size, size]
+      });
+    }
+  });
+  map.addLayer(cluster);
+
+  var active = {};
+  Object.keys(HABITATS).forEach(function (k) { active[k] = true; });
+
+  var items = PROBES.map(function (p) {
+    var hab = HABITATS[p.habitat] || HABITATS.other;
+    var site = SITES[p.site] || {};
+    var icon = L.divIcon({ className: '', html: '<div class="legend-dot" style="background:' + hab.color + '"></div>', iconSize: [18, 18], iconAnchor: [9, 9], popupAnchor: [0, -10] });
+    var rows = [
+      ['Site', site.name], ['Region', site.region], ['Habitat', hab.label], ['Project', site.project],
+      ['Partner', site.partner], ['Installed', p.installed], ['Status', p.status], ['Data', p.data], ['Notes', p.notes],
+      ['Coordinates', p.lat.toFixed(5) + ', ' + p.lng.toFixed(5)]
+    ].filter(function (r) { return r[1]; });
+    var html = '<h4>' + esc(p.name) + '</h4><table class="popup-table">' +
+      rows.map(function (r) { return '<tr><td>' + r[0] + '</td><td>' + esc(r[1]) + '</td></tr>'; }).join('') + '</table>' +
+      '<p style="margin:8px 0 0;font-size:.82rem"><a href="data.html#request">Request data from this logger &rarr;</a></p>';
+    var m = L.marker([p.lat, p.lng], { icon: icon, title: p.name }).bindPopup(html);
+    return { probe: p, marker: m, color: hab.color };
+  });
+
+  var listEl = document.getElementById('probe-list');
+  var countEl = document.getElementById('probe-count');
+
+  function focusItem(o, btn) {
+    cluster.zoomToShowLayer(o.marker, function () { o.marker.openPopup(); });
+    listEl.querySelectorAll('button').forEach(function (x) { x.classList.remove('active'); });
+    if (btn) btn.classList.add('active');
+  }
+
+  function render() {
+    cluster.clearLayers();
+    listEl.innerHTML = '';
+    var shown = items.filter(function (o) { return active[o.probe.habitat] !== false; });
+    cluster.addLayers(shown.map(function (o) { return o.marker; }));
+
+    siteKeys.forEach(function (k) {
+      var group = shown.filter(function (o) { return o.probe.site === k; });
+      if (!group.length) return;
+      var site = SITES[k];
+      var head = document.createElement('li');
+      head.innerHTML = '<button type="button" style="display:block;background:var(--sand);padding:12px 18px"><strong>' + esc(site.name) + '</strong><span>' + esc(site.region) + ' · ' + group.length + ' logger' + (group.length > 1 ? 's' : '') + '</span></button>';
+      head.querySelector('button').addEventListener('click', function () {
+        map.fitBounds(L.latLngBounds(group.map(function (o) { return o.marker.getLatLng(); })).pad(0.6), { maxZoom: 17 });
+      });
+      listEl.appendChild(head);
+      group.forEach(function (o) {
+        var li = document.createElement('li');
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.innerHTML = '<span class="dot" style="background:' + o.color + '"></span><div><strong>' + esc(o.probe.name) + '</strong><span>' + esc((HABITATS[o.probe.habitat] || HABITATS.other).label) + '</span></div>';
+        b.addEventListener('click', function () { focusItem(o, b); });
+        li.appendChild(b); listEl.appendChild(li);
+      });
+    });
+    countEl.textContent = shown.length + ' of ' + items.length + ' loggers shown';
+  }
+
+  var filters = document.getElementById('filters');
+  Object.keys(HABITATS).forEach(function (k) {
+    if (!PROBES.some(function (p) { return p.habitat === k; })) return;
+    var c = document.createElement('button');
+    c.className = 'chip'; c.type = 'button'; c.setAttribute('aria-pressed', 'true');
+    c.innerHTML = '<span class="dot" style="background:' + HABITATS[k].color + '"></span>' + HABITATS[k].label;
+    c.addEventListener('click', function () {
+      active[k] = !active[k];
+      c.setAttribute('aria-pressed', active[k] ? 'true' : 'false');
+      render();
+    });
+    filters.appendChild(c);
+  });
+
+  var allBounds = L.latLngBounds(PROBES.map(function (p) { return [p.lat, p.lng]; })).pad(0.12);
+  document.getElementById('reset-view').addEventListener('click', function () { map.fitBounds(allBounds); });
+
+  render();
+  map.fitBounds(allBounds);
+})();
+</script>
+</body>
+</html>
