@@ -20,7 +20,7 @@
     ['projects', 'projects.html', 'Projects'],
     ['map', 'probe-map.html', 'Probe Map'],
     ['data', 'data.html', 'Data Portal'],
-    ['blog', 'blog.html', 'Blog'],
+    ['blog', 'blog.html', 'Research & Blog'],
     ['involved', 'get-involved.html', 'Get Involved'],
     ['contact', 'contact.html', 'Contact']
   ];
@@ -64,7 +64,7 @@
     '<li><a href="' + root + 'projects.html">Projects</a></li>' +
     '<li><a href="' + root + 'probe-map.html">Probe map</a></li>' +
     '<li><a href="' + root + 'data.html">Data portal</a></li>' +
-    '<li><a href="' + root + 'blog.html">Blog</a></li></ul></div>' +
+    '<li><a href="' + root + 'blog.html#publications">Publications</a></li><li><a href="' + root + 'blog.html#blog">Blog</a></li></ul></div>' +
     '<div><h4>Take part</h4><ul>' +
     '<li><a href="' + root + 'donate.html">Donate</a></li>' +
     '<li><a href="' + root + 'donate.html#adopt">Adopt a probe</a></li>' +
