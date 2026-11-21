@@ -79,10 +79,13 @@
     '<span>In collaboration with Stockholm University &amp; The Green Concept, Pune</span></div>' +
     '</div></footer>';
 
+  // Pages normally have the header/footer written in by tools/build-site.ps1 (better for search engines).
+  // A page that still has the empty placeholders gets them filled in here instead.
   var h = document.getElementById('site-header');
   if (h) h.outerHTML = header;
   var f = document.getElementById('site-footer');
   if (f) f.outerHTML = footer;
+  document.querySelectorAll('.js-year').forEach(function (el) { el.textContent = new Date().getFullYear(); });
 
   // Mobile nav
   var toggle = document.querySelector('.nav-toggle');

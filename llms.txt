@@ -1,0 +1,30 @@
+# Microclimate India Research (MIR)
+
+> Microclimate India Research (MIR) runs India's first microclimate logger network. Thirty-four TOMST TMS-4 data loggers at 13 study sites across the central and northern Western Ghats record soil, surface and air temperature and soil moisture every 15 minutes. The project studies how fine-scale forest climate (microclimate) shapes plant and animal diversity, and is led by Mr Balachandra Hegde (Principal Investigator, Kuvempu University). It is not funded by any institution and relies on donations and partners.
+
+Key facts:
+- Region: Western Ghats of India (a global biodiversity hotspot), from Sakleshpur (Hassan, Karnataka) through Uttara Kannada and Chorla Ghat (Goa–Karnataka border) to Satara, Ratnagiri and Pune (Maharashtra).
+- Network: 34 TMS-4 loggers at 13 sites, in Myristica swamps, evergreen forest, forest edges, hilltops and open grasslands, including a long-term monitoring plot at Sayimane, Uttara Kannada.
+- Measurements: soil temperature (−6 cm), surface temperature (+2 cm), air temperature (+15 cm) and soil moisture, every 15 minutes.
+- Significance: there is no other systematic microclimate data from Indian forests; MIR's records are a first baseline.
+- Partners include Kuvempu University, Agharkar Research Institute (Pune), Mhadei Research Centre, Stockholm University, the National Centre for Biological Sciences and The Green Concept (Pune).
+- Contact: microclimateindia@gmail.com · Sayimane-Bidramane, PO: Sarakuli, Uttara Kannada, Karnataka 581455, India.
+
+## Main pages
+- [Home](https://microclimateindia.com/): overview of the project and network
+- [About us and research team](https://microclimateindia.com/about.html): principal investigator, team members and collaborators
+- [Projects](https://microclimateindia.com/projects.html): microclimate in Western Ghats forests; Myristica swamps; the bioluminescent forest floor; our approach
+- [Probe map](https://microclimateindia.com/probe-map.html): interactive map of all loggers and study sites
+- [Data portal](https://microclimateindia.com/data.html): the data fields collected and how to request data
+- [Publications and blog](https://microclimateindia.com/blog.html): peer-reviewed papers, field notes and explainers
+- [Donate](https://microclimateindia.com/donate.html): how to support the research, including adopting a logger
+- [Get involved](https://microclimateindia.com/get-involved.html): volunteering, hosting loggers and collaboration
+- [Contact](https://microclimateindia.com/contact.html)
+
+## Publications
+- Hegde B., Hegde N., Raghavendra H. V., Shetti R., Kambalagere Y. (2026). Microclimatic niche separation among swamp, forest, and edge species in Myristica swamps of the Western Ghats, India. Wetlands Ecology and Management 34(2): 30. https://doi.org/10.1007/s11273-026-10127-x
+
+## Blog
+- [Reflection on the microclimate research](https://microclimateindia.com/blog/reflection-on-the-microclimate-research.html) (Swanand Khanapurkar, Feb 2025)
+- [What exactly is microclimate (and meso, macro, local climate)?](https://microclimateindia.com/blog/what-exactly-is-microclimate.html) (Feb 2025)
+- [Zooming in into the secrets of Myristica swamps](https://microclimateindia.com/blog/secrets-of-myristica-swamps.html) (Oct 2024)
